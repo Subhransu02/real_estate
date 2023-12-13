@@ -55,7 +55,7 @@ export default function Profile() {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
-      () => {
+      (error) => {
         setFileUploadError(true);
       },
       () => {
@@ -122,7 +122,6 @@ export default function Profile() {
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
-      const data = await error.response.json();
       dispatch(deleteUserFailure(data.message));
     }
   };
