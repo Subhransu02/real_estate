@@ -40,7 +40,7 @@ export default function Home() {
         const data = await res.json();
         setSaleListings(data);
       } catch (error) {
-        log(error);
+        console.log(error);
       }
     };
     fetchOfferListings();
@@ -64,7 +64,7 @@ export default function Home() {
           to={'/search'}
           className='text-xs sm:text-sm text-blue-800 font-bold hover:underline'
         >
-          Let's get started...
+          Let&apos;s get started...
         </Link>
       </div>
 
@@ -72,18 +72,19 @@ export default function Home() {
       <Swiper navigation>
         {offerListings &&
           offerListings.length > 0 &&
-          offerListings.map((listing) => (
-            <SwiperSlide>
-              <div
-                style={{
-                  background: `url(${listing.imageUrls[0]}) center no-repeat`,
-                  backgroundSize: 'cover',
-                }}
-                className='h-[500px]'
-                key={listing._id}
-              ></div>
-            </SwiperSlide>
-          ))}
+          offerListings.map((listing) =>
+            listing.imageUrls.map((imageUrl, index) => (
+              <SwiperSlide key={index}>
+                <div
+                  style={{
+                    background: `url(${imageUrl}) center no-repeat`,
+                    backgroundSize: 'cover',
+                  }}
+                  className='h-[500px]'
+                ></div>
+              </SwiperSlide>
+            ))
+          )}
       </Swiper>
 
       {/* listing results for offer, sale and rent */}
